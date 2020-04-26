@@ -57,14 +57,12 @@
             .then(resp => resp.json())
             .then(callback);
     }
-    function createBookmark(scriptdata){
+    function createBookmark(scriptdata, callback){
         
         var jqdata = addjq(scriptdata);
         console.log(jqdata);
         minifyJS(jqdata, data => {
-            console.log(data.compiledCode);
-
-            
+            console.log(data.compiledCode);            
             if(data.errors && data.errors.length) {
                 console.log(data.errors);
                 console.log(data.errors.length);
@@ -72,17 +70,20 @@
             }
             $(".output a").removeClass("hide");
             $(".output a").attr("href", 'javascript:(function(){' + data.compiledCode + '})();');
+            callback();
         })
     }
 
     setTimeout(function (){
         $(".request").html("Generating Button...");
         $.get('wishlist.js', function(scriptdata) {
-            $(".request").html("");
-            createBookmark(scriptdata);
-        }, 'text').fail(function(scriptdata){
-            $(".request").html("Error: Missing Script");
-            createBookmark("alert('missing script')");
+            createBookmark(scriptdata, function (){
+                $(".request").html("");
+            });
+        }, 'text').fail(function(){
+            createBookmark("alert('missing script')", function (){
+                $(".request").html("Error: Missing Script");
+            });
         });
     },10);
 
