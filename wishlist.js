@@ -248,7 +248,7 @@ jsScriptB.addEventListener('load', () => {
                         $(".retext").remove();
                         $("body").removeClass("xlocked");
                         // $(".list-group").before(canvas);
-                        var rerender = $("<button class='rerender'>RE-RENDER</button>");
+                        var rerender = $("<button class='rerender'>RE-RENDER 🐸</button>");
                         rerender.click(function (){
                             renderCanvas();
                         });
