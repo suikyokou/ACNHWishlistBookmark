@@ -62,14 +62,14 @@
         var jqdata = addjq(scriptdata);
         console.log(jqdata);
         minifyJS(jqdata, data => {
-            console.log(data.compiledCode);            
+            console.log(data.compiledCode);
             if(data.errors && data.errors.length) {
                 console.log(data.errors);
                 console.log(data.errors.length);
                 return;
             }
-            $(".output a").removeClass("hide");
-            $(".output a").attr("href", 'javascript:(function(){' + data.compiledCode + '})();');
+            $(".output").removeClass("hide");
+            $(".output .link").attr("href", 'javascript:(function(){' + data.compiledCode + '})();');
             callback();
         })
     }
