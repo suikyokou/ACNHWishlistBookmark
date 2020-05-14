@@ -1,6 +1,6 @@
 (function() {
     var appname = "WishlistMagic🔖";
-    var appversion = "v1.5";
+    var appversion = "v1.6";
     function addjq(script){
         var xscript = `(function(){
     
