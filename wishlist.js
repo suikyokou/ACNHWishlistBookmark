@@ -28,6 +28,7 @@ jsScript.addEventListener('load', () => {
 jsScriptB.addEventListener('load', () => {
 
     var jsonroot = "https://raw.githubusercontent.com/jefflomacy/villagerdb/master/data/items/";
+    var jsonrootV = "https://raw.githubusercontent.com/jefflomacy/villagerdb/master/data/villagers/";
     var styles = `
         @import url('https://fonts.googleapis.com/css2?family=Baloo+Tamma+2&family=Fredoka+One&display=swap');
         body.xlocked{
@@ -232,12 +233,21 @@ jsScriptB.addEventListener('load', () => {
                 ximgblock.append("<span style='font-family: 'Baloo Tamma 2', cursive;'>"+xalt+"</span>");
                 ximg.css("max-width: 90px;");
                 var xid = $(this).find("a:eq(0)").attr("href").replace("/item/","");
+                var isvillager = false;
+                if (xid.indexOf("villager") > -1) {
+                    xid = xid.replace("villager/","");
+                    jsonroot = jsonrootV;
+                    isvillager = true;
+                }
                 // console.log(xid)
 
                 $.getJSON( jsonroot + xid + ".json", function( data ) {
                     console.log(data);
                     var xcato = data.category;
-                    var xcat = slugify(data.category.toLowerCase());
+                    if(isvillager){
+                        xcato = "Villagers";
+                    }
+                    var xcat = slugify(xcato.toLowerCase());
                     ximgblock.addClass(xcat);
                     if(xblock.find(".clist."+xcat).length){
                         xblock.find(".clist."+xcat).append(ximgblock);
