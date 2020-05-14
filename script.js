@@ -1,5 +1,6 @@
-(function() {    
-    
+(function() {
+    var appname = "WishlistMagic🔖";
+    var appversion = "v1.5";
     function addjq(script){
         var xscript = `(function(){
     
@@ -70,19 +71,24 @@
             }
             $(".output").removeClass("hide");
             $(".output .link").attr("href", 'javascript:(function(){' + data.compiledCode + '})();');
+            $(".output .link").html(appname + " " + appversion);
+            $(".request").removeClass("loading")
+            $(".timmy").removeClass("loading")
             callback();
         })
     }
 
     setTimeout(function (){
-        $(".request").html("Generating Button...");
+        // $(".request").html("Please wait!");
         $.get('wishlist.js', function(scriptdata) {
             createBookmark(scriptdata, function (){
-                $(".request").html("");
+                $(".requestA span").html("Ready!");
+                $(".requestB span").html("ready!");
             });
         }, 'text').fail(function(){
             createBookmark("alert('missing script')", function (){
-                $(".request").html("Error: Missing Script");
+                $(".requestA span").html("Error: Missing Script!");
+                $(".requestB span").html("script!");
             });
         });
     },10);

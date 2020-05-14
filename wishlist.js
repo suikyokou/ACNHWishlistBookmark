@@ -47,6 +47,7 @@ jsScriptB.addEventListener('load', () => {
             align-items: flex-start;
             flex-wrap: wrap;
             width: 1500px;
+            position: relative;
         }
         .xlist .clist{
             display: flex;
@@ -60,6 +61,13 @@ jsScriptB.addEventListener('load', () => {
         .xlist img{
             width: 90px !important;
             max-width: 90px !important;
+        }
+        .xlist [alt="DIY Icon"]{
+            width: 20px !important;
+            max-width: 20px !important;
+            position: absolute;
+            bottom: 0;
+            right: 0;
         }
         .xlist .ximg{
             width: 90px !important;
@@ -179,6 +187,24 @@ jsScriptB.addEventListener('load', () => {
     styleSheet.innerText = styles;
     document.head.appendChild(styleSheet);
     
+
+
+    function slugify(string) {
+        const a = 'àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;'
+        const b = 'aaaaaaaaaacccddeeeeeeeegghiiiiiilmnnnnoooooooooprrsssssttuuuuuuuuuwxyyzzz------'
+        const p = new RegExp(a.split('').join('|'), 'g')
+      
+        return string.toString().toLowerCase()
+        .replace(/\s+/g, '-') // Replace spaces with -
+        .replace(p, c => b.charAt(a.indexOf(c))) // Replace special characters
+        .replace(/&/g, '-and-') // Replace & with 'and'
+        .replace(/[^\w\-]+/g, '') // Remove all non-word characters
+        .replace(/\-\-+/g, '-') // Replace multiple - with single -
+        .replace(/^-+/, '') // Trim - from start of text
+        .replace(/-+$/, '') // Trim - from end of text
+    }
+
+
     if (window.location.href.indexOf("villagerdb") > -1) {
         if (window.location.href.indexOf("/list/") > -1) {
             var xblock = $("<div class='xlist'></div>");
@@ -209,7 +235,7 @@ jsScriptB.addEventListener('load', () => {
                 $.getJSON( jsonroot + xid + ".json", function( data ) {
                     console.log(data);
                     var xcato = data.category;
-                    var xcat = data.category.toLowerCase();
+                    var xcat = slugify(data.category.toLowerCase());
                     ximgblock.addClass(xcat);
                     if(xblock.find(".clist."+xcat).length){
                         xblock.find(".clist."+xcat).append(ximgblock);
