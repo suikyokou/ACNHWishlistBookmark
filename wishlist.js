@@ -234,14 +234,15 @@ jsScriptB.addEventListener('load', () => {
                 ximg.css("max-width: 90px;");
                 var xid = $(this).find("a:eq(0)").attr("href").replace("/item/","");
                 var isvillager = false;
+                var xjsonroot = jsonroot;
                 if (xid.indexOf("villager") > -1) {
                     xid = xid.replace("villager/","");
-                    jsonroot = jsonrootV;
+                    xjsonroot = jsonrootV;
                     isvillager = true;
                 }
                 // console.log(xid)
 
-                $.getJSON( jsonroot + xid + ".json", function( data ) {
+                $.getJSON( xjsonroot + xid + ".json", function( data ) {
                     console.log(data);
                     var xcato = data.category;
                     if(isvillager){
