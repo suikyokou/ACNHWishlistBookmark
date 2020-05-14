@@ -47,7 +47,6 @@ jsScriptB.addEventListener('load', () => {
             align-items: flex-start;
             flex-wrap: wrap;
             width: 1500px;
-            position: relative;
         }
         .xlist .clist{
             display: flex;
@@ -61,18 +60,21 @@ jsScriptB.addEventListener('load', () => {
         .xlist img{
             width: 90px !important;
             max-width: 90px !important;
+            max-height: 90px;
+            object-fit: contain;
         }
         .xlist [alt="DIY Icon"]{
             width: 20px !important;
             max-width: 20px !important;
             position: absolute;
-            bottom: 0;
+            top: 70px;
             right: 0;
         }
         .xlist .ximg{
             width: 90px !important;
             max-width: 90px !important;
             padding: 0.2em 0.3em;
+            position: relative;
         }
         .ptitle{
             font-family: 'Fredoka One', cursive;
