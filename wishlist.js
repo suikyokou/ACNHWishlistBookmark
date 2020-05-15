@@ -282,14 +282,7 @@ jsScriptB.addEventListener('load', () => {
                 }
                 // console.log(xid)
 
-                $.getJSON( xjsonroot + xid + ".json", function( data ) {
-                    console.log(data);
-                    var xcato = data.category;
-                    if(isvillager){
-                        xcato = "Villagers";
-                    }
-                    var xcat = slugify(xcato.toLowerCase());
-
+                function ximgadder(ximgblock,xcat,xcato){
                     ximgblock.addClass(xcat);
                     if(xblock.find(".clist."+xcat).length){
                         xblock.find(".clist."+xcat).append(ximgblock);
@@ -297,10 +290,26 @@ jsScriptB.addEventListener('load', () => {
                         xblock.append("<div class='clist "+xcat+"'><label>"+xcato+"</label></div>");
                         xblock.find(".clist."+xcat).append(ximgblock);
                     }
+                }
+                $.getJSON( xjsonroot + xid + ".json", function (){
+                    console.log("json")
+                })
+                .done(function( data ) {
+                    console.log(data);
+                    var xcato = data.category;
+                    if(isvillager){
+                        xcato = "Villagers";
+                    }
+                    var xcat = slugify(xcato.toLowerCase());
+                    
+                    ximgadder(ximgblock,xcat,xcato);
                     checkA[i] = true;
-                    // console.log(checkA);
+                })
+                .fail(function (){
+                    console.log("json not found: " + xjsonroot + xid + ".json");
+                    ximgadder(ximgblock,"Other","Other");
+                    checkA[i] = true;
                 });
-
             })
             $(".list-group").before(xblock);
     
